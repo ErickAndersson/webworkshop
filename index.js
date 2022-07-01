@@ -1,8 +1,5 @@
-//New
-//var mongoose = require('mongoose');
 var express = require('express');
 var beerRouter = require('./router/beerRouter.js');
-//var dbData = require('./model/beer.js');
 const { connector } = require('./model/beer.js');
 const client = require('./model/beer.js');
 
@@ -19,7 +16,7 @@ function main(){
     app.use("/beer", beerRouter);
 
     app.listen(port, () => {
-        console.log("Server running");
+        console.log("Server running on port", port);
     });
 
     return app;

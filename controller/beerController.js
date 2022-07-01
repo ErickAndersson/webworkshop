@@ -11,7 +11,7 @@ module.exports.getAll = async (req,res) => {
         res.json(beers);
     } catch(err){
         console.log(err);
-        res.status(500).send("There was an error");
+        res.status(500).send("There was an error.");
     }
 };
 
@@ -21,7 +21,7 @@ module.exports.getByName = async (req,res) => {
     try{
         let beer = await BeerModel.find({'name': req.params.name});
         if(!beer){
-            res.status(404).send('There is no beer named that way :(');
+            res.status(404).send('There is no beer named that way yet.');
         }
         res.json(beer);
     } catch(err){
@@ -34,31 +34,34 @@ module.exports.getByStyle = async (req,res) => {
     console.log('---Get by style---');
     console.log(req.body);
     try{
-        //let beers = await BeerModel.find().select('style -_id');
         let beers = await BeerModel.find({'style': req.params.style});
 
         if(!beers){
-            res.status(404).send('There is no beer with that style yet! :(');
+            res.status(404).send('There is no beer of that style yet.');
         }
 
         res.json(beers);
     } catch(err){
         console.log(err);
-        res.status(500).send('There was an error');
+        res.status(500).send('There was an error.');
     }
 };
 
 module.exports.createBeer = async (req,res) => {
-    //Maybe check if the beer is already created
-
     console.log('---Create beer---');
     console.log(req.body);
     try{
-        let beer;
-        beer = new BeerModel(req.body);
-
-        await beer.save(); // used to save the document to the database.
-        res.send(beer);
+        //Maybe check if the beer is already created
+        let beer = await BeerModel.find({'name': req.body.name});
+        if (!beer.length){ //The result of the query is empty, meaning there is no beer named that way yet.
+            beer = new BeerModel(req.body);
+            await beer.save(); // used to save the document to the database.
+            res.send(beer);
+        }
+        else {
+            console.log('Already added');
+            res.status(403).send('The selected beer is already present on the database. Try to add a different one.');
+        }
     } catch(err){
         console.log(err);
         res.status(500).send('There was an error');
@@ -76,7 +79,6 @@ module.exports.updateBeer = async (req,res) => {
             res.status(404).json({msg: "The beer selected to update doesnt exists!"})
         }
         else{
-            //const {name, style, ibu, abv, brewer, tags} = req.body;
             console.log("Updating the selected beer");
             const update = {
                 "name": req.body.name,
