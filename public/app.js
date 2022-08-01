@@ -15,7 +15,7 @@ angular.module('app',[])
                 .then(function(response){
                     console.log("All righty.", response);
                     $scope.beers = response.data;
-                    $scope.beer = ({});
+                    $scope.newBeer = ({});
                 }, function errorCallback(response){
                     console.log("Something unexpected ocurred", response);
                 });
@@ -31,9 +31,9 @@ angular.module('app',[])
 
         //Add beer
         $scope.addBeer = function(){
-            console.log("Beer about to add=", $scope.beer);
+            console.log("Beer about to add=", $scope.newBeer);
             //I do not need to check for existence because that's already done on the controller.
-            $http.post('/', $scope.beer)
+            $http.post('/', $scope.newBeer)
             .then(function(response){
                 refresh();
                 console.log("Added successfully", response);
@@ -62,6 +62,6 @@ angular.module('app',[])
 
         //Deselect
         $scope.deselect = function(){
-            $scope.beer = ({});s
+            $scope.newBeer = ({});
         }
     });
