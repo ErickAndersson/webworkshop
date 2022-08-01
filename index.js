@@ -15,6 +15,8 @@ function main(){
     app.use(express.urlencoded({ extended: false }));
     app.use("/beer", beerRouter);
 
+    //Add view engine setup here
+
     app.listen(port, () => {
         console.log("Server running on port", port);
     });

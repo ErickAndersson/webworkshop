@@ -1,0 +1,91 @@
+<!doctype html>
+<html ng-app="app">
+    <head>
+<!--style>
+.sortorder:after {
+  content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+}
+.sortorder.reverse:after {
+  content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+}
+</style-->
+        <meta charset="utf-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+            <script src="app.js"></script>
+            <title>Beer Menu</title>
+    </head>
+
+    <!--Declaring the controller-->
+    <body ng-controller="myController">
+        <div>
+            <h1>Beer Menu</h1>
+
+            <!--pre>Sort by = {{propertyName}}; reverse = {{reverse}}</pre>
+            <hr/>
+                <button ng-click="propertyName = null; reverse = false">Set to unsorted</button>
+            <hr/-->
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <button ng-click="sortBy('name')">Name</button>
+                            <span class="sortorder" ng-show="propertyName === 'name'"></span>
+                        </th>
+                        <th>
+                            <button ng-click="sortBy('style')">Style</button>
+                            <span class="sortorder" ng-show="propertyName === 'style'"></span>
+                        </th>
+                        <th>
+                            <button ng-click="sortBy('ibu')">IBU</button>
+                            <span class="sortorder" ng-show="propertyName === 'ibu'"></span>
+                        </th>
+                        <th>
+                            <button ng-click="sortBy('abv')">ABV</button>
+                            <span class="sortorder" ng-show="propertyName === 'abv'"></span>
+                        </th>
+                        <th>
+                            <button ng-click="sortBy('brewer')">Brewer</button>
+                            <span class="sortorder" ng-show="propertyName === 'brewer'"></span>
+                        </th>
+                        <th>
+                            <button ng-click="sortBy('tags')">Tags</button>
+                            <span class="sortorder" ng-show="propertyName === 'tags'"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <!--Functionality for entering information-->
+                        <td><input class="form-control" ng-model="beer.name"></td>
+                        <td><input class="form-control" ng-model="beer.style"></td>
+                        <td><input class="form-control" ng-model="beer.ibu"></td>
+                        <td><input class="form-control" ng-model="beer.abv"></td>
+                        <td><input class="form-control" ng-model="beer.brewer"></td>
+                        <td><input class="form-control" ng-model="beer.tags"></td>
+
+                        <!--Buttons-->
+                        <td><button class="btn btn-primary" ng-click="addBeer()">Add beer</button></td>
+                        <td><button class="btn btn-info" ng-click="update">Update</button>&nbsp;&nbsp;
+                        <button class="btn btn-info" ng-click="deselect()">Clean</button></td>
+                    </tr>
+                    <!--Functionality for showing the information-->
+                    <!--For each beer, repeat-->
+                    <tr ng-repeat="beer in beers | orderBy:propertyName:reverse">
+                        <td>{{beer.name}}</td>
+                        <td>{{beer.style}}</td>
+                        <td>{{beer.ibu}}</td>
+                        <td>{{beer.abv}}</td>
+                        <td>{{beer.brewer}}</td>
+                        <td>{{beer.tags}}</td>
+                        <td><button class="btn btn-danger" ng-click="remove(beer.name)">Delete</button></td>
+                        <td><button class="btn btn-warning" ng-click="edit(beer.name)">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
