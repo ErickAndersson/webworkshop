@@ -1,5 +1,3 @@
-//Don't know yet why there are two app.js, or index.js, but still I'll do it the way they showed it.
-
 /*
 $scope.beers is a list with all the information about the present beers on the DB.
 $scope.beer is the particular beer we want to add or do something with.
@@ -8,10 +6,11 @@ $scope.beer is the particular beer we want to add or do something with.
 angular.module('app',[])
     .controller('myController', function($scope, $http){
         console.log("$http=",$http);
+        
         //Get the data via refresh.
         var refresh = function(){
-            //$http.get('/beer')
-            $http.get('/beer/')
+            console.log("Refreshing");
+            $http.get('/beer')
                 .then(function(response){
                     console.log("All righty.", response);
                     $scope.beers = response.data;
@@ -20,6 +19,7 @@ angular.module('app',[])
                     console.log("Something unexpected ocurred", response);
                 });
         };
+
         refresh();
         $scope.propertyName = 'style';
         $scope.reverse = true;
@@ -33,7 +33,7 @@ angular.module('app',[])
         $scope.addBeer = function(){
             console.log("Beer about to add=", $scope.newBeer);
             //I do not need to check for existence because that's already done on the controller.
-            $http.post('/', $scope.newBeer)
+            $http.post('/beer/', $scope.newBeer)
             .then(function(response){
                 refresh();
                 console.log("Added successfully", response);
@@ -45,7 +45,7 @@ angular.module('app',[])
         //Remove beer
         $scope.remove = function(name){
             console.log("Beer about to delete=", name);
-            $http.delete('/' + name)
+            $http.delete('/beer/' + name)
             .then(function(response){
                 refresh();
                 console.log("Deleted successfully", response);

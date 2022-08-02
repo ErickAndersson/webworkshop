@@ -29,7 +29,7 @@ function main(){
     app.use("/", indexRouter);
 
     // make the public folder available for requests to the server about javascript files
-    app.use(express.static("public/index"));
+    app.use(express.static("public"));
 
     /*
     // catch 404 and forward to error handler
