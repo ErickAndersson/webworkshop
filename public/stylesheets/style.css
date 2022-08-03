@@ -1,9 +1,28 @@
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #35598f;
   }
   
-  a {
-    color: #35598f;
-  }
+h1 {
+  color: #afafaf;
+}
+
+.container{
+  background-color: #d82020;
+  display: flex;
+  justify-content: space-around;
+}
+
+.tab{
+  font: 40px "Verdana", Verdana, sans-serif;
+  font-style: bold;
+  color:rgb(66, 66, 66);
+  margin: 0 60px;
+  padding: 20px;
+}
+
+.tab:hover{
+  color: rgb(77, 18, 18);
+}
   
