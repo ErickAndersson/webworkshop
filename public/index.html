@@ -1,155 +1,181 @@
 <!doctype html>
 <html ng-app="app">
-    <head>
-        <style>
-            .sortorder:after {
-                content: '\25b2';
-            }
-            .sortorder.reverse:after {
-                content: '\25bc';
-            }
-        </style>
-        <meta charset="utf-8">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link rel="stylesheet" href="stylesheets/style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-        
-        <script src="app.js"></script>
-        <title>Beer Menu</title>
-    </head>
 
-    <!--Declaring the controller-->
-    <body ng-controller="myController">
-        <div>
-            <h1>Beer Menu</h1>
-            
-            <pre>Sort by = {{propertyName}}; reverse = {{reverse}}</pre>
-            <hr/>
-            <button ng-click="propertyName = null; reverse = false">Set to unsorted</button>
-            <hr/>
-            
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            <button ng-click="sortBy('name')">Name</button>
-                            <span class="sortorder" ng-show="propertyName === 'name'"></span>
-                        </th>
-                        <th>
-                            <button ng-click="sortBy('style')">Style</button>
-                            <span class="sortorder" ng-show="propertyName === 'style'"></span>
-                        </th>
-                        <th>
-                            <button ng-click="sortBy('ibu')">IBU</button>
-                            <span class="sortorder" ng-show="propertyName === 'ibu'"></span>
-                        </th>
-                        <th>
-                            <button ng-click="sortBy('abv')">ABV</button>
-                            <span class="sortorder" ng-show="propertyName === 'abv'"></span>
-                        </th>
-                        <th>
-                            <button ng-click="sortBy('brewer')">Brewer</button>
-                            <span class="sortorder" ng-show="propertyName === 'brewer'"></span>
-                        </th>
-                        <th>
-                            <button ng-click="sortBy('tags')">Tags</button>
-                            <span class="sortorder" ng-show="propertyName === 'tags'"></span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <!--Functionality for entering information-->
-                        <td><input class="form-control" ng-model="newBeer.name"></td>
-                        <td><input class="form-control" ng-model="newBeer.style"></td>
-                        <td><input class="form-control" ng-model="newBeer.ibu"></td>
-                        <td><input class="form-control" ng-model="newBeer.abv"></td>
-                        <td><input class="form-control" ng-model="newBeer.brewer"></td>
-                        <td><input class="form-control" ng-model="newBeer.tags"></td>
-                        
-                        <!--Buttons-->
-                        <td><button class="btn btn-primary" ng-click="addBeer()">Add beer</button></td>
-                        <td><button class="btn btn-info" ng-click="update">Update</button>&nbsp;&nbsp;
-                            <button class="btn btn-info" ng-click="deselect()">Clean</button></td>
-                        </tr>
-                        
-                        <div role="tabpanel">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#tab0" aria-controls="tab0" role="tab" data-toggle="tab">All</a></li>
-                                <li role="presentation"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">IPA</a></li>
-                                <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Honey</a></li>
-                                <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Stout</a></li>
-                                <li role="presentation"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Others</a></li>
-                            </ul>
+<head>
+    <style>
+        .sortorder:after {
+            content: '\25b2';
+        }
 
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="tab0">
-                                    <h1>
-                                        <p>All: Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur repellendus ab cumque laudantium rerum, 
-                                            sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam iusto! Ipsam, ipsum numquam.</p>
-                                    </h1>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="tab1">
-                                    <h1>
-                                        <p>IPA: Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur repellendus ab cumque laudantium rerum, 
-                                            sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam iusto! Ipsam, ipsum numquam.</p>
-                                    </h1>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="tab2">
-                                    <h1>
-                                        <p>Honey: Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur repellendus ab cumque laudantium rerum, 
-                                            sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam iusto! Ipsam, ipsum numquam.</p>
-                                    </h1>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="tab3">
-                                    <h1>
-                                        <p>Stout: Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur repellendus ab cumque laudantium rerum, 
-                                            sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam iusto! Ipsam, ipsum numquam.</p>
-                                    </h1>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="tab4">
-                                    <h1>
-                                        <p>Others: Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur repellendus ab cumque laudantium rerum, 
-                                            sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam iusto! Ipsam, ipsum numquam.</p>
-                                    </h1>
-                                </div>
-                            </div>
+        .sortorder.reverse:after {
+            content: '\25bc';
+        }
+    </style>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <script src="app.js"></script>
+    <title>Beer Menu</title>
+</head>
+
+<!--Declaring the controller-->
+
+<body ng-controller="myController">
+    <div>
+        <h1>Beer Menu</h1>
+
+        <pre>Sort by = {{propertyName}}; reverse = {{reverse}}</pre>
+        <hr />
+        <button ng-click="propertyName = null; reverse = false">Set to unsorted</button>
+        <hr />
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <button ng-click="sortBy('name')">Name</button>
+                        <span class="sortorder" ng-show="propertyName === 'name'"></span>
+                    </th>
+                    <th>
+                        <button ng-click="sortBy('style')">Style</button>
+                        <span class="sortorder" ng-show="propertyName === 'style'"></span>
+                    </th>
+                    <th>
+                        <button ng-click="sortBy('ibu')">IBU</button>
+                        <span class="sortorder" ng-show="propertyName === 'ibu'"></span>
+                    </th>
+                    <th>
+                        <button ng-click="sortBy('abv')">ABV</button>
+                        <span class="sortorder" ng-show="propertyName === 'abv'"></span>
+                    </th>
+                    <th>
+                        <button ng-click="sortBy('brewer')">Brewer</button>
+                        <span class="sortorder" ng-show="propertyName === 'brewer'"></span>
+                    </th>
+                    <th>
+                        <button ng-click="sortBy('tags')">Tags</button>
+                        <span class="sortorder" ng-show="propertyName === 'tags'"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!--Functionality for entering information-->
+                    <td><input class="form-control" ng-model="newBeer.name"></td>
+                    <td><input class="form-control" ng-model="newBeer.style"></td>
+                    <td><input class="form-control" ng-model="newBeer.ibu"></td>
+                    <td><input class="form-control" ng-model="newBeer.abv"></td>
+                    <td><input class="form-control" ng-model="newBeer.brewer"></td>
+                    <td><input class="form-control" ng-model="newBeer.tags"></td>
+
+                    <!--Buttons-->
+                    <td><button class="btn btn-primary" ng-click="addBeer()">Add beer</button></td>
+                    <td><button class="btn btn-info" ng-click="update">Update</button>&nbsp;&nbsp;
+                        <button class="btn btn-info" ng-click="deselect()">Clean</button>
+                    </td>
+                </tr>
+
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li role="presentation" class="nav-item"><a href="#tab0" aria-controls="tab0" role="tab"
+                                data-toggle="tab">All</a></li>
+                        <li role="presentation"><a href="#tab1" aria-controls="tab1" role="tab"
+                                data-toggle="tab">IPA</a></li>
+                        <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab"
+                                data-toggle="tab">Honey</a></li>
+                        <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab"
+                                data-toggle="tab">Stout</a></li>
+                        <li role="presentation"><a href="#tab4" aria-controls="tab4" role="tab"
+                                data-toggle="tab">Others</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tab0">
+                            <h1>All</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur
+                                repellendus ab cumque laudantium rerum,
+                                sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam
+                                iusto! Ipsam, ipsum numquam.</p>
                         </div>
-
-                        <!--Functionality for showing the information-->
-                        <!--Tabs without framework-->
-                        <div class="container">
-                            <div class="tab">All</div>
-                            <div class="tab">IPA</div>
-                            <div class="tab">Honey</div>
-                            <div class="tab">Stout</div>
-                            <div class="tab">Others</div>
+                        <div role="tabpanel" class="tab-pane" id="tab1">
+                            <h1>IPA</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur
+                                repellendus ab cumque laudantium rerum,
+                                sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam
+                                iusto! Ipsam, ipsum numquam.</p>
                         </div>
+                        <div role="tabpanel" class="tab-pane" id="tab2">
+                            <h1>Honey</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur
+                                repellendus ab cumque laudantium rerum,
+                                sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam
+                                iusto! Ipsam, ipsum numquam.</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab3">
+                            <h1>Stout</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur
+                                repellendus ab cumque laudantium rerum,
+                                sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam
+                                iusto! Ipsam, ipsum numquam.</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab4">
+                            <h1>Others</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eius, tenetur
+                                repellendus ab cumque laudantium rerum,
+                                sed veniam expedita, consequatur distinctio autem cupiditate soluta. Eaque, aliquam
+                                iusto! Ipsam, ipsum numquam.</p>
+                        </div>
+                    </div>
+                </div>
 
-                        <!--Tabs with material angular-->
-                        <mat-tab-group>
-                            <mat-tab label="First"> Content 1 </mat-tab>
-                            <mat-tab label="Second"> Content 2 </mat-tab>
-                            <mat-tab label="Third"> Content 3 </mat-tab>
-                        </mat-tab-group>
-                          
-                        
-                        <!--For each beer, repeat-->
-                        <tr ng-repeat="beer in beers | orderBy:propertyName:reverse">
-                            <td>{{beer.name}}</td>
-                            <td>{{beer.style}}</td>
-                            <td>{{beer.ibu}}</td>
-                            <td>{{beer.abv}}</td>
-                            <td>{{beer.brewer}}</td>
-                            <td>{{beer.tags}}</td>
-                            <td><button class="btn btn-danger" ng-click="remove(beer.name)">Delete</button></td>
-                            <td><button class="btn btn-warning" ng-click="edit(beer.name)">Edit</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </body>
+                <!--Functionality for showing the information-->
+                <!--Tabs without framework>
+                <div class="container">
+                    <div class="tab">All</div>
+                    <div class="tab">IPA</div>
+                    <div class="tab">Honey</div>
+                    <div class="tab">Stout</div>
+                    <div class="tab">Others</div>
+                </div-->
+
+                <!--Tabs with material angular>
+                <mat-tab-group>
+                    <mat-tab label="First"> Content 1 </mat-tab>
+                    <mat-tab label="Second"> Content 2 </mat-tab>
+                    <mat-tab label="Third"> Content 3 </mat-tab>
+                </mat-tab-group-->
+
+
+                <!--For each beer, repeat-->
+                <tr ng-repeat="beer in beers | orderBy:propertyName:reverse">
+                    <td>{{beer.name}}</td>
+                    <td>{{beer.style}}</td>
+                    <td>{{beer.ibu}}</td>
+                    <td>{{beer.abv}}</td>
+                    <td>{{beer.brewer}}</td>
+                    <td>{{beer.tags}}</td>
+                    <td><button class="btn btn-danger" ng-click="remove(beer.name)">Delete</button></td>
+                    <td><button class="btn btn-warning" ng-click="edit(beer.name)">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
