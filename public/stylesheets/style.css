@@ -9,9 +9,8 @@ h1 {
 }
 
 .container{
-  background-color: #d82020;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .tab{
