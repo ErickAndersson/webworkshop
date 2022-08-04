@@ -10,7 +10,7 @@ angular.module('app',[])
         //Get the data via refresh.
         var refresh = function(){
             console.log("Refreshing");
-            $http.get('/beer')
+            $http.get('/beer/')
                 .then(function(response){
                     console.log("All righty.", response);
                     $scope.beers = response.data;
@@ -21,7 +21,7 @@ angular.module('app',[])
         };
 
         refresh();
-        $scope.propertyName = 'style';
+        $scope.propertyName = 'name';
         $scope.reverse = true;
 
         $scope.sortBy = function(propertyName){
@@ -59,6 +59,22 @@ angular.module('app',[])
         //Update beer
 
         //Filter beer
+        $scope.filterBeers = function(style){
+            if(style!=''){
+                console.log("About to filter the beers with style", style);
+                $http.get('/beer/style/' + style)
+                .then(function(response){
+                    console.log("All righty.", response);
+                    $scope.beers = response.data;
+                    $scope.newBeer = ({}); //Maybe optional
+                }, function errorCallback(response){
+                    console.log("Something unexpected ocurred", response);
+                });
+            }
+            else{
+                refresh();
+            }
+        }
 
         //Deselect
         $scope.deselect = function(){
