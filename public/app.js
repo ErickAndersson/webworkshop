@@ -1,8 +1,3 @@
-/*
-$scope.beers is a list with all the information about the present beers on the DB.
-$scope.beer is the particular beer we want to add or do something with.
-*/
-
 angular.module('app',[])
     .controller('myController', function($scope, $http){
         console.log("$http=",$http);
@@ -54,9 +49,17 @@ angular.module('app',[])
             });
         };
 
-        //Edit beer (maybe not)
-
-        //Update beer
+        //Edit beer
+        $scope.edit = function(name){
+            console.log("Beer about to update=", name);
+            $http.put('/beer/' + name, $scope.newBeer)
+            .then(function(response){
+                refresh();
+                console.log("Updated successfully", response);
+            }, function errorCallback(response){
+                console.log("Couldn't complete the update operation", response);
+            });
+        };
 
         //Filter beer
         $scope.filterBeers = function(style){
@@ -66,7 +69,7 @@ angular.module('app',[])
                 .then(function(response){
                     console.log("All righty.", response);
                     $scope.beers = response.data;
-                    $scope.newBeer = ({}); //Maybe optional
+                    $scope.newBeer = ({});
                 }, function errorCallback(response){
                     console.log("Something unexpected ocurred", response);
                 });
